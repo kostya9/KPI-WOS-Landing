@@ -10,9 +10,8 @@ jobs:
         with:
           fetch-depth: 1
       - uses: docker://pulumi/actions
-        working-directory: ./infra
         with:
-          args: preview
+          args: preview --cwd ./infra
         env:
           PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
