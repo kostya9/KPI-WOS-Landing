@@ -8,11 +8,11 @@ jobs:
     name: Update
     runs-on: ubuntu-latest
     steps:
-        working-directory: ./infra
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
       - uses: docker://pulumi/actions
+        working-directory: ./infra
         with:
           args: up
         env:
