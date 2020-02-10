@@ -1,0 +1,3 @@
+name: wos-static
+runtime: nodejs
+description: Static website for WOS KPI project
