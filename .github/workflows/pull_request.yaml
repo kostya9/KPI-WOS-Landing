@@ -5,8 +5,8 @@ jobs:
   preview:
     name: Preview
     runs-on: ubuntu-latest
-    working-directory: ./infra
     steps:
+        working-directory: ./infra
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
