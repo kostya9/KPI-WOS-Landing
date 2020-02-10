@@ -19,18 +19,32 @@ const bucket = new aws.s3.Bucket("wos-landing-static-server", {
     },
 });
 
-var webRootRelative = "../www";
-let files = fs.readdirSync(webRootRelative);
-for(const filePath of files) {
-    const relativeFilePath = path.join(webRootRelative, filePath);
+function* recursiveFiles(dir: string): Generator<string> {
+    const files = fs.readdirSync(dir);
+    for (const file of files) {
+        const filePath = path.join(dir, file);
+        const stat = fs.statSync(filePath);
+        if (stat.isDirectory()) {
+            yield* recursiveFiles(filePath);
+        }
+        if (stat.isFile()) {
+            yield filePath;
+        }
+    }
+}
+
+var webRootRelative = path.join("..", "www");
+for(const relativeFilePath of recursiveFiles(webRootRelative)) {
+    const filePath = relativeFilePath
+        .replace(webRootRelative + path.sep, "")
+        .replace("\\", "/");
         const contentFile = new aws.s3.BucketObject(
-            relativeFilePath,
+            filePath,
             {
                 key: filePath,
-
                 acl: "public-read",
                 bucket: bucket,
-                contentType: mime.getType(filePath) || undefined,
+                contentType: mime.getType(relativeFilePath) || undefined,
                 source: new pulumi.asset.FileAsset(relativeFilePath),
             },
             {

@@ -17,3 +17,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PULUMI_CI: pr
           COMMENT_ON_PR: 1
+          PULUMI_ROOT: infra
