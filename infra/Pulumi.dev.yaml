@@ -1,3 +1,5 @@
 config:
   aws:profile: pulumi
   aws:region: eu-north-1
+  site:domain: landing.booking.knine.xyz
+  site:certificateArn: arn:aws:acm:us-east-1:049059941555:certificate/cd9dba13-798b-4506-9398-609b505fea77
