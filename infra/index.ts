@@ -21,6 +21,8 @@ const bucket = new aws.s3.Bucket(domain, {
     }
 });
 
+const hour = 60 * 60;
+
 const cloudfrontDistribution = new aws.cloudfront.Distribution("static-woss", {
     enabled: true,
     aliases: [domain],
@@ -38,8 +40,8 @@ const cloudfrontDistribution = new aws.cloudfront.Distribution("static-woss", {
         },
 
         minTtl: 0,
-        defaultTtl: 0,
-        maxTtl: 0,
+        defaultTtl: hour,
+        maxTtl: hour,
     },
 
     priceClass: "PriceClass_100",
