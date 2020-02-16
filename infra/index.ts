@@ -21,7 +21,7 @@ const bucket = new aws.s3.Bucket(domain, {
     }
 });
 
-const hour = 60 * 60;
+const hour = 60 * 60 + 1;
 
 const cloudfrontDistribution = new aws.cloudfront.Distribution("static-woss", {
     enabled: true,
