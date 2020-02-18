@@ -1,0 +1,351 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "",
+    "version": "1.0.0",
+    "title": "WOSS Booking"
+  },
+  "host": "api.booking.knine.xyz",
+  "tags": [
+    {
+      "name": "profile",
+      "description": "Personal information of current user"
+    },
+    {
+      "name": "properties",
+      "description": "API that manages properties"
+    },
+    {
+      "name": "comments",
+      "description": "API that manages comments of a property"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/api/profile": {
+      "get": {
+        "tags": [
+          "profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProfileResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "profile"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "avatar",
+            "type": "file"
+          },
+          {
+            "in": "formData",
+            "name": "first_name",
+            "type": "string"
+          },
+          {
+            "in": "formData",
+            "name": "last_name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ProfileResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/properties": {
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PagingPropertiesResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "properties"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "cover_image",
+            "type": "file",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PropertyResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "properties"
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "description",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "cover_image",
+            "type": "file",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PropertyResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/{id}": {
+      "get": {
+        "tags": [
+          "properties"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PropertyResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/properties/{id}/comments": {
+      "get": {
+        "tags": [
+          "comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommentResponse"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "comments"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CommentResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ProfileResponse": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "avatar_url": {
+          "type": "string"
+        },
+        "role": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "name": {
+              "type": "string",
+              "enum": [
+                "admin",
+                "host",
+                "guest"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "PropertyResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "cover_image_url": {
+          "type": "string"
+        }
+      }
+    },
+    "CommentResponse": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "text": {
+          "type": "string"
+        },
+        "created_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mood_type": {
+          "type": "integer",
+          "description": "The mood of the comment determined by a ML algorithm"
+        },
+        "author": {
+          "type": "object",
+          "properties": {
+            "first_name": {
+              "type": "string"
+            },
+            "last_name": {
+              "type": "string"
+            },
+            "avatar_url": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "PagingPropertiesResponse": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PropertyResponse"
+          }
+        }
+      }
+    }
+  }
+}
