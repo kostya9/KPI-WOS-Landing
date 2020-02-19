@@ -30,14 +30,14 @@ paths:
       - "multipart/form-data"
       parameters:
       - in: formData
-        name: avatar
-        type: file
-      - in: formData
         name: first_name
         type: string
       - in: formData
         name: last_name
         type: string
+      - in: formData
+        name: avatar
+        type: file
       responses:
         200:
           description: Success
