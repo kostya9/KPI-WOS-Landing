@@ -114,19 +114,15 @@ paths:
       - in: path
         name: id
         type: integer
-        required: true
       - in: formData
         name: name
         type: string
-        required: true
       - in: formData
         name: description
         type: string
-        required: true
       - in: formData
         name: cover_image
         type: file
-        required: true
       responses:
         200:
           description: Success
@@ -157,6 +153,16 @@ paths:
         name: id
         required: true
         type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            text:
+              type: string
+          required:
+          - text
       responses:
         200:
           description: Success
