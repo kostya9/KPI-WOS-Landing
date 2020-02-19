@@ -58,32 +58,16 @@ paths:
         200:
           description: Success
           schema:
-            $ref: "#/definitions/PagingPropertiesResponse"
+            type: object
+            properties:
+              total:
+                type: integer
+                format: int32
+              items:
+                type: array
+                items: 
+                  $ref: "#/definitions/PropertyResponse"
     post:
-      tags:
-      - "properties"
-      consumes: 
-      - "multipart/form-data"
-      parameters:
-      - in: formData
-        name: name
-        type: string
-        required: true
-      - in: formData
-        name: description
-        type: string
-        required: true
-      - in: formData
-        name: cover_image
-        type: file
-        required: true
-      responses:
-        200:
-          description: Success
-          schema:
-            $ref: '#/definitions/PropertyResponse'
-            
-    put:
       tags:
       - "properties"
       consumes: 
@@ -115,6 +99,33 @@ paths:
       - in: path
         name: id
         type: integer
+        required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/PropertyResponse'
+    put:
+      tags:
+      - "properties"
+      consumes: 
+      - "multipart/form-data"
+      parameters:
+      - in: path
+        name: id
+        type: integer
+        required: true
+      - in: formData
+        name: name
+        type: string
+        required: true
+      - in: formData
+        name: description
+        type: string
+        required: true
+      - in: formData
+        name: cover_image
+        type: file
         required: true
       responses:
         200:
@@ -212,14 +223,4 @@ definitions:
             type: string
           avatar_url:
             type: string
-  PagingPropertiesResponse:
-    type: "object"
-    properties:
-      total:
-        type: integer
-        format: int32
-      items:
-        type: array
-        items: 
-          $ref: "#/definitions/PropertyResponse"
       
