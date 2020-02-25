@@ -172,13 +172,13 @@ definitions:
           type:
             type: string
           neg:
-            type: float
+            type: number
           neu:
-            type: float
+            type: number
           pos:
-            type: float
+            type: number
           compound:
-            type: float
+            type: number
       createdDate:
         type: "string"
         format: "date-time"
