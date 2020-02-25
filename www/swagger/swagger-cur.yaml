@@ -76,7 +76,7 @@ definitions:
         type: "string"
       cover_image_file_name:
         type: "string"
-      cover_image_file_base64:
+      cover_image_base64:
         type: "string"
   PropertyResponse:
     type: "object"
