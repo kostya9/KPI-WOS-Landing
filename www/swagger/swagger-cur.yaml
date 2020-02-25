@@ -82,15 +82,9 @@ paths:
         200:
           description: Success
           schema:
-            type: object
-            properties:
-              items:
-                type: array
-                items: 
-                  $ref: "#/definitions/CommentResponse"
-              total:
-                type: integer
-                format: int32
+            type: array
+            items: 
+              $ref: '#/definitions/CommentResponse'
     post:
       tags:
       - "comments"
@@ -154,17 +148,17 @@ definitions:
       propertyId:
         type: "string"
         format: "uuidv4"
-      authorId:
-        type: "string"
-        format: "uuidv4"
-        # type: object
-        # properties:
-        #   first_name:
-        #     type: string
-        #   last_name:
-        #     type: string
-        #   avatar_url:
-        #     type: string
+      author:
+        type: object
+        properties:
+          id:
+            type: string
+          firstName:
+            type: string
+          lastName:
+            type: string
+          avatarUrl:
+            type: string
       mood:
         description: "The mood of the comment determined by a ML algorithm"
         type: object
