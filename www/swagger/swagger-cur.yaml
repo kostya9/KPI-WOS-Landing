@@ -24,8 +24,6 @@ paths:
     post:
       tags:
       - "properties"
-      consumes: 
-      - "multipart/form-data"
       parameters:
       - in: body
         name: body
@@ -54,8 +52,6 @@ paths:
     put:
       tags:
       - "properties"
-      consumes: 
-      - "multipart/form-data"
       parameters:
       - in: path
         name: id
