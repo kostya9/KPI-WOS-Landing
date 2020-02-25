@@ -42,7 +42,7 @@ paths:
       parameters:
       - in: path
         name: id
-        type: integer
+        type: string
         required: true
       responses:
         200:
@@ -55,7 +55,7 @@ paths:
       parameters:
       - in: path
         name: id
-        type: integer
+        type: string
         required: true
       - in: body
         name: body
@@ -82,8 +82,7 @@ definitions:
     type: "object"
     properties:
       id:
-        type: "integer"
-        format: "int32"
+        type: "string"
       name:
         type: "string"
       description:
