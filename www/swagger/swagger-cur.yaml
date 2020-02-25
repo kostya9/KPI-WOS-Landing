@@ -7,6 +7,8 @@ host: "api.booking.knine.xyz"
 tags:
 - name: "properties"
   description: "API that manages properties"
+- name: "comments"
+  description: "API that manages comments of a property"
 schemes:
 - "https"
 paths:
@@ -66,6 +68,53 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PropertyResponse'
+
+  /properties/{id}/comments:
+    get:
+      tags:
+      - "comments"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              items:
+                type: array
+                items: 
+                  $ref: "#/definitions/CommentResponse"
+              total:
+                type: integer
+                format: int32
+    post:
+      tags:
+      - "comments"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            text:
+              type: string
+          required:
+          - text
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/CommentResponse'
+
 definitions:
   PropertyRequest:
     type: "object"
@@ -93,3 +142,43 @@ definitions:
         format: "date"
       cover_image_url:
         type: "string"
+
+  CommentResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuidv4"
+      text:
+        type: "string"
+      propertyId:
+        type: "string"
+        format: "uuidv4"
+      authorId:
+        type: "string"
+        format: "uuidv4"
+        # type: object
+        # properties:
+        #   first_name:
+        #     type: string
+        #   last_name:
+        #     type: string
+        #   avatar_url:
+        #     type: string
+      mood:
+        description: "The mood of the comment determined by a ML algorithm"
+        type: object
+        properties:
+          type:
+            type: string
+          neg:
+            type: float
+          neu:
+            type: float
+          pos:
+            type: float
+          compound:
+            type: float
+      createdDate:
+        type: "string"
+        format: "date-time"
