@@ -159,20 +159,10 @@ definitions:
             type: string
           avatarUrl:
             type: string
-      mood:
+      moodType:
         description: "The mood of the comment determined by a ML algorithm"
-        type: object
-        properties:
-          type:
-            type: string
-          neg:
-            type: number
-          neu:
-            type: number
-          pos:
-            type: number
-          compound:
-            type: number
+        type: string
+        enum: [negative, neutral, positive]
       createdDate:
         type: "string"
         format: "date-time"
