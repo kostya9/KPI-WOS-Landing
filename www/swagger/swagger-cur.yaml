@@ -15,7 +15,7 @@ securityDefinitions:
   Customers:
     type: oauth2
     flow: implicit
-    authorizationUrl: https://booking-user-pool-domain-customer.auth.eu-central-1.amazoncognito.com/oauth2/authorize?redirect_uri=https%3A%2F%2Flanding.booking.knine.xyz%2Fswagger%2Foauth2-redirect.html&response_type=code&client_id=5vpqdi2hlkvqjsjqd3gsama9c8
+    authorizationUrl: https://booking-user-pool-domain-customer.auth.eu-central-1.amazoncognito.com/oauth2/authorize?redirect_uri=https%3A%2F%2Flanding.booking.knine.xyz%2Fswagger%2Foauth2-redirect.html&client_id=5vpqdi2hlkvqjsjqd3gsama9c8&response_type=code
     scopes:
       profile: Basic profile data access
       email: Email data access
@@ -111,8 +111,8 @@ paths:
               type: string
           required:
           - text
-      securityDefinitions:
-        Customers: [email, profile]
+      security:
+        - Customers: [email, profile]
       responses:
         200:
           description: Success
