@@ -19,7 +19,7 @@ securityDefinitions:
   OAuth2:
     type: oauth2
     flow: implicit
-    authorizationUrl: https://booking-user-pool-domain-customer.auth.eu-central-1.amazoncognito.com/oauth2/authorize?redirect_uri=https%3A%2F%2Flanding.booking.knine.xyz%2Fswagger%2F&response_type=code&client_id=5vpqdi2hlkvqjsjqd3gsama9c8
+    authorizationUrl: https://booking-user-pool-domain-customer.auth.eu-central-1.amazoncognito.com/oauth2/authorize?redirect_uri=https%3A%2F%2Flanding.booking.knine.xyz%2Fswagger%2F&response_type=token&client_id=5vpqdi2hlkvqjsjqd3gsama9c8
 paths:
   /test/{id}:
     get:
