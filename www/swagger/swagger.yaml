@@ -5,6 +5,8 @@ info:
   title: "WOSS Booking"
 host: "api.booking.knine.xyz"
 tags:
+- name: "test"
+  description: "Test endpoings"
 - name: "profile"
   description: "Personal information of current user"
 - name: "properties"
@@ -13,7 +15,26 @@ tags:
   description: "API that manages comments of a property"
 schemes:
 - "https"
+securityDefinitions:
+  OAuth2:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: https://booking-user-pool-domain-host.auth.eu-central-1.amazoncognito.com/oauth2/authorize?redirect_uri=https://landing.booking.knine.xyz/swagger&response_type=code&client_id=4o98dleg8r6uqi1g09ctoua1cg
 paths:
+  /test/{id}:
+    get:
+      tags: 
+      - test
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      security:
+      - OAuth2: []
+      responses:
+        200:
+          description: Success
   /api/profile:
     get:
       tags:
