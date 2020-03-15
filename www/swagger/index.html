@@ -36,6 +36,32 @@
     <script src="./swagger-ui-bundle.js"> </script>
     <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
+    function removeClientIdInputBox() {
+      const mutationObserver = new MutationObserver(mutations => {
+        mutations[0].addedNodes.forEach((node) => {
+          if (node.classList && node.classList.contains('dialog-ux')) {
+            // The node we want to target has no id/classname other than 'wrapper'
+            const wrappers = node.parentElement.getElementsByClassName('wrapper');
+            // This is pure assumption that the clientId node is always the first one
+            const firstNode = wrappers[0];
+            console.log(firstNode)
+            if (firstNode && firstNode.parentNode) {
+              firstNode.parentNode.removeChild(firstNode);
+            }
+          }
+        });
+      });
+
+      mutationObserver.observe(document.getElementById('swagger-ui'), {
+        attributes: false,
+        characterData: false,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: false
+      });
+    }
+
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
@@ -52,11 +78,13 @@
           SwaggerUIBundle.plugins.DownloadUrl
         ],
         layout: "StandaloneLayout",
-        oauth2RedirectUrl: './oauth2-redirect.html'
+        oauth2RedirectUrl: './oauth2-redirect.html',
       })
-      // End Swagger UI call region
 
       window.ui = ui
+      removeClientIdInputBox();
+      
+      // End Swagger UI call region
     }
   </script>
   </body>
