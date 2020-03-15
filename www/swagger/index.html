@@ -42,11 +42,11 @@
           if (node.classList && node.classList.contains('dialog-ux')) {
             // The node we want to target has no id/classname other than 'wrapper'
             const wrappers = node.parentElement.getElementsByClassName('wrapper');
-            // This is pure assumption that the clientId node is always the first one
-            const firstNode = wrappers[0];
-            console.log(firstNode)
-            if (firstNode && firstNode.parentNode) {
-              firstNode.parentNode.removeChild(firstNode);
+            // This is pure assumption that the clientSecret node is always the second one
+            const secondNode = wrappers[1];
+            console.log(secondNode)
+            if (secondNode && secondNode.parentNode) {
+              secondNode.parentNode.removeChild(secondNode);
             }
           }
         });
