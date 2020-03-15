@@ -18,7 +18,7 @@
             qp = location.search.substring(1);
         }
 
-        arr = qp.split("&")
+        arr = qp.split("&").sort((left, right) => left.includes('id_token') ? -1 : left.localeCompare(right))
         arr.forEach(function (v,i,_arr) { _arr[i] = '"' + v.replace('=', '":"') + '"';})
         qp = qp ? JSON.parse('{' + arr.join() + '}',
                 function (key, value) {
