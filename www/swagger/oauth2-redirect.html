@@ -19,12 +19,6 @@
         }
 
         arr = qp.split("&")
-
-        var hasIdToken = arr.indexOf('id_token');
-        var hasAccToken = arr.indexOf('access_token');
-        arr = arr.splice(hasAccToken);
-        arr[hasIdToken] = arr[hasIdToken].replace('id_token', 'access_token')
-
         arr.forEach(function (v,i,_arr) { _arr[i] = '"' + v.replace('=', '":"') + '"';})
         qp = qp ? JSON.parse('{' + arr.join() + '}',
                 function (key, value) {
