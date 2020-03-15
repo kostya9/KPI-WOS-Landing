@@ -21,7 +21,7 @@ securityDefinitions:
       email: Email data access
 paths:
   /properties:
-    get:W
+    get:
       tags:
       - "properties"
       responses:
