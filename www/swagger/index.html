@@ -38,17 +38,8 @@
     <script>
     function removeClientIdInputBox() {
       const mutationObserver = new MutationObserver(mutations => {
-        mutations[0].addedNodes.forEach((node) => {
-          if (node.classList && node.classList.contains('dialog-ux')) {
-            // The node we want to target has no id/classname other than 'wrapper'
-            const wrappers = node.parentElement.getElementsByClassName('wrapper');
-            // This is pure assumption that the clientSecret node is always the second one
-            const secondNode = wrappers[1];
-            console.log(secondNode)
-            if (secondNode && secondNode.parentNode) {
-              secondNode.parentNode.removeChild(secondNode);
-            }
-          }
+        document.querySelectorAll('.dialog-ux .wrapper #client_secret').forEach(n => {
+          n.parentNode.removeChild(n);
         });
       });
 
