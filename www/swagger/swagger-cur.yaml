@@ -14,6 +14,12 @@ tags:
 schemes:
 - "https"
 securityDefinitions:
+  # --[PROBLEM]--
+  # SwaggerUI source code is looking for access_token (in oauth2 flow) variable to make API calls by default
+  # BUT API Gateway requires us to use id_token in this scenario
+  # So, by default, it is not possible to integrate SwaggerUI with AWS Cognito
+  # --[WORKAROUND]--
+  # The access_token regex in SwaggerUI source code was replaced with id_token regex! 
   Customers:
     description: Customers
     type: oauth2
