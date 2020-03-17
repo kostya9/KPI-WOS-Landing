@@ -5,6 +5,8 @@ info:
   title: "WOSS Booking"
 host: "api.booking.knine.xyz"
 tags:
+- name: "profile"
+  description: "Personal information of current user"
 - name: "properties"
   description: "API that manages properties"
 - name: "comments"
@@ -31,6 +33,80 @@ securityDefinitions:
       profile: Basic profile data access
       email: Email data access
 paths:
+  /customers/profile:
+    get:
+      tags:
+      - "profile"
+      security:
+      - Customers: [email, profile]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/CustomerProfileResponse"
+    put:
+      tags:
+      - "profile"
+      security:
+      - Customers: [email, profile]
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            avatarFileName:
+              type: string
+            avatarBase64:
+              type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/CustomerProfileResponse"
+            
+  /hosts/profile:
+    get:
+      tags:
+      - "profile"
+      security:
+      - Hosts: [email, profile]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/HostProfileResponse"
+    put:
+      tags:
+      - "profile"
+      security:
+      - Hosts: [email, profile]
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            avatarFileName:
+              type: string
+            avatarBase64:
+              type: string
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/HostProfileResponse"
+
   /properties:
     get:
       tags:
@@ -135,6 +211,50 @@ paths:
             $ref: '#/definitions/CommentResponse'
 
 definitions:
+  CustomerProfileResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      username:
+        type: "string"
+      email:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      avatarUrl:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+
+  HostProfileResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+      username:
+        type: "string"
+      email:
+        type: "string"
+      firstName:
+        type: "string"
+      lastName:
+        type: "string"
+      avatarUrl:
+        type: "string"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+
   PropertyRequest:
     type: "object"
     properties:
