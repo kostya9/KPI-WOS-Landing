@@ -36,6 +36,23 @@
     <script src="./swagger-ui-bundle.js"> </script>
     <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
+    function removeClientIdInputBox() {
+      const mutationObserver = new MutationObserver(mutations => {
+        document.querySelectorAll('.dialog-ux .wrapper #client_secret').forEach(n => {
+          n.parentNode.removeChild(n);
+        });
+      });
+
+      mutationObserver.observe(document.getElementById('swagger-ui'), {
+        attributes: false,
+        characterData: false,
+        childList: true,
+        subtree: true,
+        attributeOldValue: false,
+        characterDataOldValue: false
+      });
+    }
+
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
@@ -51,11 +68,14 @@
         plugins: [
           SwaggerUIBundle.plugins.DownloadUrl
         ],
-        layout: "StandaloneLayout"
+        layout: "StandaloneLayout",
+        oauth2RedirectUrl: 'https://landing.booking.knine.xyz/swagger/oauth2-redirect.html',
       })
-      // End Swagger UI call region
 
       window.ui = ui
+      removeClientIdInputBox();
+      
+      // End Swagger UI call region
     }
   </script>
   </body>
