@@ -36,7 +36,11 @@
     <script src="./swagger-ui-bundle.js"> </script>
     <script src="./swagger-ui-standalone-preset.js"> </script>
     <script>
-    function removeClientIdInputBox() {
+    /** 
+        Since the cognito oauth2 flow does not require client_secret
+        We can remove the input box for that
+    **/
+    function removeClientSecretInputBox() {
       const mutationObserver = new MutationObserver(mutations => {
         document.querySelectorAll('.dialog-ux .wrapper #client_secret').forEach(n => {
           n.parentNode.removeChild(n);
@@ -73,7 +77,7 @@
       })
 
       window.ui = ui
-      removeClientIdInputBox();
+      removeClientSecretInputBox();
       
       // End Swagger UI call region
     }
