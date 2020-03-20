@@ -56,7 +56,7 @@ paths:
     put:
       summary: Updates customer's profile data.
       description: "Updates profile data of currently authorized user, if he is customer.\n\n
-      `avatarFileName` is string that will represent lats part of path to uploaded property image, so be careful with
+      `avatarFileName` is string that will represent last part of path to uploaded property image, so be careful with
       image format\n\n
       `avatarBase64` is string that represents image in `base64` format"
       tags:
@@ -101,7 +101,7 @@ paths:
     put:
       summary: Updates hosts profile data.
       description: "Updates profile data of currently authorized user, if he is host.\n\n
-      `avatarFileName` is string that will represent lats part of path to uploaded property image, so be careful with
+      `avatarFileName` is string that will represent last part of path to uploaded property image, so be careful with
       image format\n\n
       `avatarBase64` is string that represents image in `base64` format"
       tags:
@@ -147,7 +147,7 @@ paths:
       summary: Creates new property. 
       description: 
         "Creates new property in database and return is as object.\n\n
-        `cover_image_file_name` is string that will represent lats part of path to uploaded property image, so be careful
+        `cover_image_file_name` is string that will represent last part of path to uploaded property image, so be careful
         with image format\n\n
         `cover_image_base64` is string that represents image in `base64` format"
       tags:
