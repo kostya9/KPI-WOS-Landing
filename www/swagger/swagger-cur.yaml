@@ -41,6 +41,9 @@ securityDefinitions:
 paths:
   /customers/profile:
     get:
+      summary: Returns customer's profile data.
+      description: >
+        Returns profile data of currently authorized user, if he is customer.
       tags:
       - "profile"
       security:
@@ -51,6 +54,11 @@ paths:
           schema:
             $ref: "#/definitions/CustomerProfileResponse"
     put:
+      summary: Updates customer's profile data.
+      description: "Updates profile data of currently authorized user, if he is customer.\n\n
+      `avatarFileName` is string that will represent last part of path to uploaded property image, so be careful with
+      image format\n\n
+      `avatarBase64` is string that represents image in `base64` format"
       tags:
       - "profile"
       security:
@@ -78,6 +86,9 @@ paths:
             
   /hosts/profile:
     get:
+      summary: Returns hosts profile data.
+      description: >
+        Returns profile data of currently authorized user, if he is host.
       tags:
       - "profile"
       security:
@@ -88,6 +99,11 @@ paths:
           schema:
             $ref: "#/definitions/HostProfileResponse"
     put:
+      summary: Updates hosts profile data.
+      description: "Updates profile data of currently authorized user, if he is host.\n\n
+      `avatarFileName` is string that will represent last part of path to uploaded property image, so be careful with
+      image format\n\n
+      `avatarBase64` is string that represents image in `base64` format"
       tags:
       - "profile"
       security:
@@ -115,6 +131,9 @@ paths:
 
   /properties:
     get:
+      summary: Return list of properties. 
+      description: >
+        Returns list of all properties existing in database.
       tags:
       - "properties"
       responses:
@@ -125,6 +144,12 @@ paths:
             items: 
               $ref: "#/definitions/PropertyResponse"
     post:
+      summary: Creates new property. 
+      description: 
+        "Creates new property in database and return is as object.\n\n
+        `cover_image_file_name` is string that will represent last part of path to uploaded property image, so be careful
+        with image format\n\n
+        `cover_image_base64` is string that represents image in `base64` format"
       tags:
       - "properties"
       parameters:
@@ -142,6 +167,9 @@ paths:
 
   /properties/{id}:
     get:
+      summary: Returns property based on it`s id.
+      description: >
+        Returns property based on it's `id`, which is `uuid` string.
       tags:
       - "properties"
       parameters:
@@ -155,6 +183,12 @@ paths:
           schema:
             $ref: '#/definitions/PropertyResponse'
     put:
+      summary: Updates property defined by id. 
+      description:         
+        "Updates property in database and return is as object.\n\n
+        `cover_image_file_name` is string that will represent lats part of path to uploaded property image, so be careful
+        with image format\n\n
+        `cover_image_base64` is string that represents image in `base64` format"
       tags:
       - "properties"
       parameters:
@@ -176,6 +210,9 @@ paths:
 
   /properties/{id}/comments:
     get:
+      summary: Returns list of comments for specific property. 
+      description: >
+        The path for requesting a list of comments for a specific property represented by unique `id`, which is `uuid` string.
       tags:
       - "comments"
       parameters:
@@ -191,6 +228,10 @@ paths:
             items: 
               $ref: '#/definitions/CommentResponse'
     post:
+      summary: Creates comment for specific property and returns it as object. 
+      description: 
+        "Required query params: `id`, `uuid` string.\n\n
+         Required body values: `text`, string that represents someone`s comment."
       tags:
       - "comments"
       parameters:
@@ -222,6 +263,7 @@ definitions:
     properties:
       id:
         type: "string"
+        format: "uuid"
       username:
         type: "string"
       email:
@@ -244,6 +286,7 @@ definitions:
     properties:
       id:
         type: "string"
+        format: "uuid"
       username:
         type: "string"
       email:
@@ -277,7 +320,7 @@ definitions:
     properties:
       id:
         type: "string"
-        format: "uuidv4"
+        format: "uuid"
       name:
         type: "string"
       description:
@@ -287,18 +330,18 @@ definitions:
         format: "date"
       cover_image_url:
         type: "string"
-
+        
   CommentResponse:
     type: "object"
     properties:
       id:
         type: "string"
-        format: "uuidv4"
+        format: "uuid"
       text:
         type: "string"
       propertyId:
         type: "string"
-        format: "uuidv4"
+        format: "uuid"
       author:
         type: object
         properties:
