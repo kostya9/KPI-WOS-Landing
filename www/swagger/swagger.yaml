@@ -207,6 +207,81 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PropertyResponse'
+            
+  /properties/{id}/images:
+    post:
+      summary: Adds an image to the property with specified id
+      description:         
+        "Adds an image to the property in database and returns the property object.\n\n
+        `image_file_name` is string that will represent lats part of path to uploaded property image, so be careful
+        with image format\n\n
+        `image_base64` is string that represents image in `base64` format"
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      - in: body
+        name: body
+        schema: 
+          $ref: '#/definitions/AddPropertyImageRequest'
+      security:
+        - Hosts: [email, profile]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/PropertyResponse'
+            
+  /properties/{id}/images/{imageId}:
+    delete:
+      summary: Removes an image from the property with specified id
+      description:         
+        "Removes an image from the property with specified id"
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      - in: path
+        name: imageId
+        type: number
+        required: true
+      security:
+        - Hosts: [email, profile]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/PropertyResponse'
+            
+  /properties/{id}/images/order:
+    put:
+      summary: Reorders the images of the property property with specified id
+      description:         
+        "Reorders the images in the property according to specified order"
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      - in: body
+        name: body
+        schema: 
+          $ref: '#/definitions/ReorderPropertyImagesRequest'
+      security:
+        - Hosts: [email, profile]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/PropertyResponse'
 
   /properties/{id}/comments:
     get:
@@ -330,6 +405,34 @@ definitions:
         format: "date"
       cover_image_url:
         type: "string"
+      images:
+        type: array
+        items: 
+              $ref: "#/definitions/PropertyImageResponse"
+              
+  PropertyImageResponse:
+    type: object
+    properties:
+      id:
+        type: number
+      url: 
+        type: string
+
+  AddPropertyImageRequest:
+    type: "object"
+    properties:
+      image_base64:
+        type: "string"
+      image_file_name:
+        type: "string"
+        
+  ReorderPropertyImagesRequest:
+    type: "object"
+    properties:
+      imageIdsInOrder:
+        type: "array"
+        items: 
+            type: integer
         
   CommentResponse:
     type: "object"
