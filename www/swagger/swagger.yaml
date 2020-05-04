@@ -390,6 +390,23 @@ definitions:
         type: "string"
       cover_image_base64:
         type: "string"
+      address:
+        type: string
+      opportunities:
+        type: array
+        items:
+          type: string
+      price:
+        type: number
+      landmarks:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            distance:
+              type: number
   PropertyResponse:
     type: "object"
     properties:
@@ -409,6 +426,23 @@ definitions:
         type: array
         items: 
               $ref: "#/definitions/PropertyImageResponse"
+      address:
+        type: string
+      opportunities:
+        type: array
+        items:
+          type: string
+      price:
+        type: number
+      landmarks:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            distance:
+              type: number
               
   PropertyImageResponse:
     type: object
