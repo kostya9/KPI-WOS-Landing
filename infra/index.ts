@@ -40,8 +40,8 @@ const cloudfrontDistribution = new aws.cloudfront.Distribution("static-woss", {
         },
 
         minTtl: 0,
-        defaultTtl: hour,
-        maxTtl: hour,
+        defaultTtl: 0,
+        maxTtl: 0,
     },
 
     priceClass: "PriceClass_100",
