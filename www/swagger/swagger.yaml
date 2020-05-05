@@ -49,7 +49,7 @@ paths:
       tags:
       - "profile"
       security:
-      - Customers: [email, profile]
+      - Customers: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -64,7 +64,7 @@ paths:
       tags:
       - "profile"
       security:
-      - Customers: [email, profile]
+      - Customers: [email, profile, openid]
       parameters:
       - in: body
         name: body
@@ -94,7 +94,7 @@ paths:
       tags:
       - "profile"
       security:
-      - Hosts: [email, profile]
+      - Hosts: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -109,7 +109,7 @@ paths:
       tags:
       - "profile"
       security:
-      - Hosts: [email, profile]
+      - Hosts: [email, profile, openid]
       parameters:
       - in: body
         name: body
@@ -160,7 +160,7 @@ paths:
         schema: 
           $ref: '#/definitions/PropertyRequest'
       security:
-        - Hosts: [email, profile]
+        - Hosts: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -203,7 +203,7 @@ paths:
         schema: 
           $ref: '#/definitions/PropertyRequest'
       security:
-        - Hosts: [email, profile]
+        - Hosts: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -230,7 +230,7 @@ paths:
         schema: 
           $ref: '#/definitions/AddPropertyImageRequest'
       security:
-        - Hosts: [email, profile]
+        - Hosts: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -254,7 +254,7 @@ paths:
         type: number
         required: true
       security:
-        - Hosts: [email, profile]
+        - Hosts: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -278,7 +278,7 @@ paths:
         schema: 
           $ref: '#/definitions/ReorderPropertyImagesRequest'
       security:
-        - Hosts: [email, profile]
+        - Hosts: [email, profile, openid]
       responses:
         200:
           description: Success
@@ -327,7 +327,7 @@ paths:
           required:
           - text
       security:
-        - Customers: [email, profile]
+        - Customers: [email, profile, openid]
       responses:
         200:
           description: Success
