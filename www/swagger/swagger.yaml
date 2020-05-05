@@ -29,6 +29,7 @@ securityDefinitions:
     scopes:
       profile: Basic profile data access
       email: Email data access
+      openid: Please tick this scope for the auth to work
   Hosts:
     description: Hosts
     type: oauth2
@@ -38,6 +39,7 @@ securityDefinitions:
     scopes:
       profile: Basic profile data access
       email: Email data access
+      openid: Please tick this scope for the auth to work
 paths:
   /customers/profile:
     get:
