@@ -11,6 +11,8 @@ tags:
   description: "API that manages properties"
 - name: "comments"
   description: "API that manages comments of a property"
+- name: "reservation"
+  description: "API that manages reservations"
 schemes:
 - "https"
 securityDefinitions:
@@ -85,6 +87,21 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/CustomerProfileResponse"
+
+  /customers/reservation:
+    get:
+      summary: Returns customer's reservations
+      tags:
+      - "profile"
+      security:
+      - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items: 
+              $ref: "#/definitions/ReservationResponse"
 
   /hosts/profile:
     get:
@@ -375,6 +392,73 @@ paths:
           schema:
             $ref: '#/definitions/CommentResponse'
 
+  /properties/{id}/reservation/available-count:
+    get:
+      summary: Returns property available rooms count
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              availableRoomsCount:
+                type: number
+
+  /reservation:
+    post:
+      summary: Creates reservation
+      tags:
+      - "reservation"
+      parameters:
+      - in: body
+        name: body
+        schema: 
+          type: object
+          properties:
+            propertyId:
+              type: string
+              format: uuid
+            bookedRoomsNumber:
+              type: number
+            beginDate:
+              type: string
+              format: data-time
+            endDate:
+              type: string
+              format: data-time
+      security:
+      - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/ReservationResponse"
+
+  /reservation/{id}:
+    delete:
+      summary: Removes reservation
+      tags:
+      - "reservation"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      security:
+      - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/ReservationResponse'
+
 definitions:
   CustomerProfileResponse:
     type: "object"
@@ -597,5 +681,26 @@ definitions:
         type: string
         enum: [negative, neutral, positive]
       createdDate:
+        type: "string"
+        format: "date-time"
+
+  ReservationResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      propertyId:
+        type: "string"
+        format: "uuid"
+      customerId:
+        type: "string"
+        format: "uuid"
+      bookedRoomsNumber:
+        type: "number"
+      beginDate:
+        type: "string"
+        format: "date-time"
+      endDate:
         type: "string"
         format: "date-time"
