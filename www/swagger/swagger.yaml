@@ -616,15 +616,6 @@ definitions:
               type: number
       totalRoomsNumber:
         type: number
-      ratings:
-        type: array
-        items:
-          type: object
-          properties:
-            customerId:
-              type: string
-            rating:
-              type: number
       rating:
         type: number
       isConfirmed:
