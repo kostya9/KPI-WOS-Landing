@@ -11,6 +11,8 @@ tags:
   description: "API that manages properties"
 - name: "comments"
   description: "API that manages comments of a property"
+- name: "reservation"
+  description: "API that manages reservations"
 schemes:
 - "https"
 securityDefinitions:
@@ -85,7 +87,22 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/CustomerProfileResponse"
-            
+
+  /customers/reservation:
+    get:
+      summary: Returns customer's reservations
+      tags:
+      - "profile"
+      security:
+      - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            type: array
+            items: 
+              $ref: "#/definitions/ReservationResponse"
+
   /hosts/profile:
     get:
       summary: Returns hosts profile data.
@@ -158,7 +175,7 @@ paths:
       - in: body
         name: body
         schema: 
-          $ref: '#/definitions/PropertyRequest'
+          $ref: '#/definitions/CreatePropertyRequest'
       security:
         - Hosts: [email, profile, openid]
       responses:
@@ -185,8 +202,8 @@ paths:
           schema:
             $ref: '#/definitions/PropertyResponse'
     put:
-      summary: Updates property defined by id. 
-      description:         
+      summary: Updates property defined by id.
+      description:
         "Updates property in database and return is as object.\n\n
         `cover_image_file_name` is string that will represent lats part of path to uploaded property image, so be careful
         with image format\n\n
@@ -201,7 +218,7 @@ paths:
       - in: body
         name: body
         schema: 
-          $ref: '#/definitions/PropertyRequest'
+          $ref: '#/definitions/UpdatePropertyRequest'
       security:
         - Hosts: [email, profile, openid]
       responses:
@@ -209,11 +226,52 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PropertyResponse'
-            
+
+  /properties/{id}/rate:
+    put:
+      summary: Adds property rating
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      - in: body
+        name: body
+        schema:
+          type: object
+          properties:
+            rating:
+              type: number
+      security:
+        - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/PropertyResponse'
+
+  /properties/{id}/confirm:
+    put:
+      summary: Confirms property
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/PropertyResponse'
+
   /properties/{id}/images:
     post:
       summary: Adds an image to the property with specified id
-      description:         
+      description:
         "Adds an image to the property in database and returns the property object.\n\n
         `image_file_name` is string that will represent lats part of path to uploaded property image, so be careful
         with image format\n\n
@@ -236,11 +294,11 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PropertyResponse'
-            
+
   /properties/{id}/images/{imageId}:
     delete:
       summary: Removes an image from the property with specified id
-      description:         
+      description:
         "Removes an image from the property with specified id"
       tags:
       - "properties"
@@ -260,7 +318,7 @@ paths:
           description: Success
           schema:
             $ref: '#/definitions/PropertyResponse'
-            
+
   /properties/{id}/images/order:
     put:
       summary: Reorders the images of the property property with specified id
@@ -334,6 +392,73 @@ paths:
           schema:
             $ref: '#/definitions/CommentResponse'
 
+  /properties/{id}/reservation/available-count:
+    get:
+      summary: Returns property available rooms count
+      tags:
+      - "properties"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      responses:
+        200:
+          description: Success
+          schema:
+            type: object
+            properties:
+              availableRoomsCount:
+                type: number
+
+  /reservation:
+    post:
+      summary: Creates reservation
+      tags:
+      - "reservation"
+      parameters:
+      - in: body
+        name: body
+        schema: 
+          type: object
+          properties:
+            propertyId:
+              type: string
+              format: uuid
+            bookedRoomsNumber:
+              type: number
+            beginDate:
+              type: string
+              format: data-time
+            endDate:
+              type: string
+              format: data-time
+      security:
+      - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: "#/definitions/ReservationResponse"
+
+  /reservation/{id}:
+    delete:
+      summary: Removes reservation
+      tags:
+      - "reservation"
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+      security:
+      - Customers: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            $ref: '#/definitions/ReservationResponse'
+
 definitions:
   CustomerProfileResponse:
     type: "object"
@@ -381,7 +506,7 @@ definitions:
         type: "string"
         format: "date-time"
 
-  PropertyRequest:
+  CreatePropertyRequest:
     type: "object"
     properties:
       name:
@@ -413,6 +538,42 @@ definitions:
               type: string
             distance:
               type: number
+      totalRoomsNumber:
+        type: number
+
+  UpdatePropertyRequest:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      description:
+        type: "string"
+      cover_image_file_name:
+        type: "string"
+      cover_image_base64:
+        type: "string"
+      address:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      opportunities:
+        type: array
+        items:
+          type: string
+      price:
+        type: number
+      landmarks:
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            distance:
+              type: number
+
   PropertyResponse:
     type: "object"
     properties:
@@ -430,7 +591,7 @@ definitions:
         type: "string"
       images:
         type: array
-        items: 
+        items:
               $ref: "#/definitions/PropertyImageResponse"
       address:
         type: string
@@ -453,13 +614,19 @@ definitions:
               type: string
             distance:
               type: number
-              
+      totalRoomsNumber:
+        type: number
+      rating:
+        type: number
+      isConfirmed:
+        type: boolean
+
   PropertyImageResponse:
     type: object
     properties:
       id:
         type: number
-      url: 
+      url:
         type: string
 
   AddPropertyImageRequest:
@@ -469,15 +636,15 @@ definitions:
         type: "string"
       image_file_name:
         type: "string"
-        
+
   ReorderPropertyImagesRequest:
     type: "object"
     properties:
       imageIdsInOrder:
         type: "array"
-        items: 
+        items:
             type: integer
-        
+
   CommentResponse:
     type: "object"
     properties:
@@ -505,5 +672,26 @@ definitions:
         type: string
         enum: [negative, neutral, positive]
       createdDate:
+        type: "string"
+        format: "date-time"
+
+  ReservationResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        format: "uuid"
+      propertyId:
+        type: "string"
+        format: "uuid"
+      customerId:
+        type: "string"
+        format: "uuid"
+      bookedRoomsNumber:
+        type: "number"
+      beginDate:
+        type: "string"
+        format: "date-time"
+      endDate:
         type: "string"
         format: "date-time"
