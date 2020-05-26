@@ -293,7 +293,7 @@ paths:
 
   /properties/{id}/confirm:
     put:
-      summary: Confirms property
+      summary: [ADMIN] Confirms property
       tags:
       - "properties"
       parameters:
