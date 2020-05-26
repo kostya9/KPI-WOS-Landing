@@ -85,7 +85,7 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/CustomerProfileResponse"
-            
+
   /hosts/profile:
     get:
       summary: Returns hosts profile data.
@@ -130,7 +130,46 @@ paths:
           description: Success
           schema:
             $ref: "#/definitions/HostProfileResponse"
-
+  /hosts:
+    get:
+      summary: [ADMIN] Returns all hosts profile data
+      description: >
+        Returns profile data of all hosts, if the actor is host and he is admin.
+      tags:
+      - "profile"
+      security:
+      - Hosts: [email, profile, openid]
+      responses:
+        200:
+          description: Success
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/HostProfileResponse"
+  /hosts/{hostId}/markAdmin:
+    put:
+      summary: [ADMIN] Marks specified host as an admin
+      description: >
+        Marks the specified host as an admin, if the actor is host and he is admin.
+      tags:
+      - "profile"
+      parameters:
+      - in: path
+        name: hostId
+        type: string
+        required: true
+      - in: body
+        name: body
+        schema: 
+          type: object
+          properties:
+            isAdmin:
+              type: boolean
+      security:
+      - Hosts: [email, profile, openid]
+      responses:
+        204:
+          description: Success
   /properties:
     get:
       summary: Return list of properties. 
@@ -380,6 +419,8 @@ definitions:
       updatedAt:
         type: "string"
         format: "date-time"
+      isAdmin:
+        type: "boolean"
 
   PropertyRequest:
     type: "object"
