@@ -149,7 +149,8 @@ paths:
             $ref: "#/definitions/HostProfileResponse"
   /hosts:
     get:
-      summary: [ADMIN] Returns all hosts profile data
+      summary: > 
+        [ADMIN] Returns all hosts profile data
       description: >
         Returns profile data of all hosts, if the actor is host and he is admin.
       tags:
@@ -165,7 +166,8 @@ paths:
               $ref: "#/definitions/HostProfileResponse"
   /hosts/{hostId}/markAdmin:
     put:
-      summary: [ADMIN] Marks specified host as an admin
+      summary: >
+        [ADMIN] Marks specified host as an admin
       description: >
         Marks the specified host as an admin, if the actor is host and he is admin.
       tags:
@@ -293,7 +295,8 @@ paths:
 
   /properties/{id}/confirm:
     put:
-      summary: [ADMIN] Confirms property
+      summary: >
+        [ADMIN] Confirms property
       tags:
       - "properties"
       parameters:
