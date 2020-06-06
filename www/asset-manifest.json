@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/TestGHPagesRepBooking/static/css/main.7838e538.chunk.css",
-    "main.js": "/TestGHPagesRepBooking/static/js/main.b510e481.chunk.js",
-    "main.js.map": "/TestGHPagesRepBooking/static/js/main.b510e481.chunk.js.map",
-    "runtime-main.js": "/TestGHPagesRepBooking/static/js/runtime-main.71abf11f.js",
-    "runtime-main.js.map": "/TestGHPagesRepBooking/static/js/runtime-main.71abf11f.js.map",
-    "static/js/2.1d205ddd.chunk.js": "/TestGHPagesRepBooking/static/js/2.1d205ddd.chunk.js",
-    "static/js/2.1d205ddd.chunk.js.map": "/TestGHPagesRepBooking/static/js/2.1d205ddd.chunk.js.map",
-    "index.html": "/TestGHPagesRepBooking/index.html",
-    "precache-manifest.bf2af18ad74820b15770e22c9f314fc7.js": "/TestGHPagesRepBooking/precache-manifest.bf2af18ad74820b15770e22c9f314fc7.js",
-    "service-worker.js": "/TestGHPagesRepBooking/service-worker.js",
-    "static/css/main.7838e538.chunk.css.map": "/TestGHPagesRepBooking/static/css/main.7838e538.chunk.css.map",
-    "static/js/2.1d205ddd.chunk.js.LICENSE.txt": "/TestGHPagesRepBooking/static/js/2.1d205ddd.chunk.js.LICENSE.txt"
+    "main.css": "/static/css/main.7838e538.chunk.css",
+    "main.js": "/static/js/main.b510e481.chunk.js",
+    "main.js.map": "/static/js/main.b510e481.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.85ce9104.js",
+    "runtime-main.js.map": "/static/js/runtime-main.85ce9104.js.map",
+    "static/js/2.b3c641db.chunk.js": "/static/js/2.b3c641db.chunk.js",
+    "static/js/2.b3c641db.chunk.js.map": "/static/js/2.b3c641db.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.12bcd6f19f96ecdfedf4a3ad7fe2ac71.js": "/precache-manifest.12bcd6f19f96ecdfedf4a3ad7fe2ac71.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.7838e538.chunk.css.map": "/static/css/main.7838e538.chunk.css.map",
+    "static/js/2.b3c641db.chunk.js.LICENSE.txt": "/static/js/2.b3c641db.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.71abf11f.js",
-    "static/js/2.1d205ddd.chunk.js",
+    "static/js/runtime-main.85ce9104.js",
+    "static/js/2.b3c641db.chunk.js",
     "static/css/main.7838e538.chunk.css",
     "static/js/main.b510e481.chunk.js"
   ]
